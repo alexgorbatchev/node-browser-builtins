@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "resolve": "0.3.1",
+    "punycode": "1.2.2",
     "console-browserify": "0.1.6",
     "vm-browserify": "0.0.1",
     "crypto-browserify": "0.2.1",
