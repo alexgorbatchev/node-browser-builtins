@@ -1,6 +1,6 @@
 {
   "name": "browser-builtins",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Builtins that were extracted from node-browser-resolve on which browserify depends",
   "main": "index.js",
   "repository": {
@@ -14,13 +14,13 @@
   "author": "Alex Gorbatchev <alex.gorbatchev@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "resolve": "0.3.1",
-    "punycode": "1.2.2",
-    "console-browserify": "0.1.6",
-    "vm-browserify": "0.0.1",
+    "resolve": "0.3.x",
+    "punycode": "1.2.x",
+    "console-browserify": "0.1.x",
+    "vm-browserify": "0.0.x",
     "crypto-browserify": "0.2.x",
-    "http-browserify": "0.1.11",
-    "buffer-browserify": "0.1.0",
-    "zlib-browserify": "0.0.1"
+    "http-browserify": "0.1.x",
+    "buffer-browserify": "0.1.x",
+    "zlib-browserify": "0.0.x"
   }
 }
