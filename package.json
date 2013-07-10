@@ -21,6 +21,7 @@
     "crypto-browserify": "0.2.x",
     "http-browserify": "0.1.x",
     "buffer-browserify": "0.1.x",
-    "zlib-browserify": "0.0.x"
+    "zlib-browserify": "0.0.x",
+    "constants-browserify": "0.0.x"
   }
 }
