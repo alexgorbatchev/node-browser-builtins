@@ -68,17 +68,16 @@ EventEmitter.prototype.emit = function(type) {
         break;
       // slower
       default:
-        var args = Array.prototype.slice.call(arguments, 1);
-        handler.apply(this, args);
+        arguments[0] = this;
+        Function.call.apply(handler, arguments);
     }
     return true;
 
   } else if (isArray(handler)) {
-    var args = Array.prototype.slice.call(arguments, 1);
-
+    arguments[0] = this;
     var listeners = handler.slice();
     for (var i = 0, l = listeners.length; i < l; i++) {
-      listeners[i].apply(this, args);
+      Function.call.apply(listeners[i], arguments);
     }
     return true;
 
