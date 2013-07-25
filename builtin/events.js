@@ -1,6 +1,13 @@
-if (!process.EventEmitter) process.EventEmitter = function () {};
 
-var EventEmitter = exports.EventEmitter = process.EventEmitter;
+var EventEmitter = function(){}
+
+if (typeof process != 'undefined') {
+  if (!process.EventEmitter) process.EventEmitter = EventEmitter;
+  else EventEmitter = process.EventEmitter;
+}
+
+exports.EventEmitter = EventEmitter;
+
 var isArray = typeof Array.isArray === 'function'
     ? Array.isArray
     : function (xs) {
