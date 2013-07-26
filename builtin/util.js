@@ -41,8 +41,8 @@ exports.inspect = function(obj, showHidden, depth, colors) {
           'regexp': 'red' }[styleType];
 
     if (style) {
-      return '\033[' + styles[style][0] + 'm' + str +
-             '\033[' + styles[style][1] + 'm';
+      return '\u001b[' + styles[style][0] + 'm' + str +
+             '\u001b[' + styles[style][1] + 'm';
     } else {
       return str;
     }
