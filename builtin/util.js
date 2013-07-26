@@ -229,7 +229,7 @@ exports.inspect = function(obj, showHidden, depth, colors) {
 function isArray(ar) {
   return ar instanceof Array ||
          Array.isArray(ar) ||
-         (ar && ar !== Object.prototype && isArray(ar.__proto__));
+         (typeof ar === 'object' && Object.prototype.toString.call(ar) === '[object Array]');
 }
 
 
@@ -241,10 +241,7 @@ function isRegExp(re) {
 
 function isDate(d) {
   if (d instanceof Date) return true;
-  if (typeof d !== 'object') return false;
-  var properties = Date.prototype && Object_getOwnPropertyNames(Date.prototype);
-  var proto = d.__proto__ && Object_getOwnPropertyNames(d.__proto__);
-  return JSON.stringify(proto) === JSON.stringify(properties);
+  return typeof d === 'object' && Object.prototype.toString.call(d) === '[object Date]';
 }
 
 function pad(n) {
