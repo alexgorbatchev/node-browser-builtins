@@ -227,20 +227,17 @@ exports.inspect = function(obj, showHidden, depth, colors) {
 
 
 function isArray(ar) {
-  return ar instanceof Array ||
-         Array.isArray(ar) ||
+  return Array.isArray(ar) ||
          (typeof ar === 'object' && Object.prototype.toString.call(ar) === '[object Array]');
 }
 
 
 function isRegExp(re) {
-  return re instanceof RegExp ||
-    (typeof re === 'object' && Object.prototype.toString.call(re) === '[object RegExp]');
+  typeof re === 'object' && Object.prototype.toString.call(re) === '[object RegExp]';
 }
 
 
 function isDate(d) {
-  if (d instanceof Date) return true;
   return typeof d === 'object' && Object.prototype.toString.call(d) === '[object Date]';
 }
 
