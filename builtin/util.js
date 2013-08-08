@@ -41,8 +41,8 @@ exports.inspect = function(obj, showHidden, depth, colors) {
           'regexp': 'red' }[styleType];
 
     if (style) {
-      return '\033[' + styles[style][0] + 'm' + str +
-             '\033[' + styles[style][1] + 'm';
+      return '\u001b[' + styles[style][0] + 'm' + str +
+             '\u001b[' + styles[style][1] + 'm';
     } else {
       return str;
     }
@@ -227,24 +227,18 @@ exports.inspect = function(obj, showHidden, depth, colors) {
 
 
 function isArray(ar) {
-  return ar instanceof Array ||
-         Array.isArray(ar) ||
-         (ar && ar !== Object.prototype && isArray(ar.__proto__));
+  return Array.isArray(ar) ||
+         (typeof ar === 'object' && Object.prototype.toString.call(ar) === '[object Array]');
 }
 
 
 function isRegExp(re) {
-  return re instanceof RegExp ||
-    (typeof re === 'object' && Object.prototype.toString.call(re) === '[object RegExp]');
+  typeof re === 'object' && Object.prototype.toString.call(re) === '[object RegExp]';
 }
 
 
 function isDate(d) {
-  if (d instanceof Date) return true;
-  if (typeof d !== 'object') return false;
-  var properties = Date.prototype && Object_getOwnPropertyNames(Date.prototype);
-  var proto = d.__proto__ && Object_getOwnPropertyNames(d.__proto__);
-  return JSON.stringify(proto) === JSON.stringify(properties);
+  return typeof d === 'object' && Object.prototype.toString.call(d) === '[object Date]';
 }
 
 function pad(n) {
