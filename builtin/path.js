@@ -173,3 +173,5 @@ exports.relative = function(from, to) {
 
   return outputParts.join('/');
 };
+
+exports.sep = '/';
