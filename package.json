@@ -1,6 +1,6 @@
 {
   "name": "browser-builtins",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Builtins that were extracted from node-browser-resolve on which browserify depends",
   "main": "index.js",
   "repository": {
