@@ -3,6 +3,9 @@
   "version": "1.0.7",
   "description": "Builtins that were extracted from node-browser-resolve on which browserify depends",
   "main": "index.js",
+  "scripts": {
+    "test": "tape test/node/* && browserify --transform ./test/browserify-transform.js test/browser/* | testling"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/alexgorbatchev/node-browser-builtins.git"
@@ -22,5 +25,8 @@
     "buffer-browserify": "0.1.x",
     "zlib-browserify": "0.0.x",
     "constants-browserify": "0.0.x"
+  },
+  "devDependencies": {
+    "tape": "1.0.x"
   }
 }
