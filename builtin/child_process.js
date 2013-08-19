@@ -1,2 +1,2 @@
-exports.spawn = function () {};
-exports.exec = function () {};
+
+throw new Error('child_process is not implemented');
