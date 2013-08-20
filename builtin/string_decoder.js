@@ -1,5 +1,15 @@
+
+var Buffer = require('buffer').Buffer;
+
+function assertEncoding(encoding) {
+  if (encoding && !Buffer.isEncoding(encoding)) {
+    throw new Error('Unknown encoding: ' + encoding);
+  }
+}
+
 var StringDecoder = exports.StringDecoder = function(encoding) {
   this.encoding = (encoding || 'utf8').toLowerCase().replace(/[-_]/, '');
+  assertEncoding(encoding);
   switch (this.encoding) {
     case 'utf8':
       // CESU-8 represents each of Surrogate Pair by 3-bytes
