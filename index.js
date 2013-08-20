@@ -21,5 +21,6 @@ core['console'] = require.resolve('console-browserify');
 core['zlib'] = require.resolve('zlib-browserify');
 core['buffer'] = require.resolve('buffer-browserify');
 core['constants'] = require.resolve('constants-browserify');
+core['os'] = path.resolve(require.resolve('os-browserify'), '..', 'browser.js');
 
 module.exports = core;
