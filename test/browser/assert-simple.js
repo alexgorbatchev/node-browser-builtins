@@ -27,3 +27,21 @@ test('assert.ok - pass', function (t) {
   }
   t.end();
 });
+
+test('assert.deepEqual Make sure deepEqual doesn\'t loop forever on circular refs', function (t) {
+  var b = {};
+  b.b = b;
+
+  var c = {};
+  c.b = c;
+
+  var gotError = false;
+  try {
+    assert.deepEqual(b, c);
+  } catch (e) {
+    gotError = true;
+  }
+
+  t.ok(gotError);
+  t.end();
+});
