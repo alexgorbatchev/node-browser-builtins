@@ -127,6 +127,6 @@ test('stream2 - push', function (t) {
     setTimeout(function() {
       t.ok(ended, 'end emitted');
       t.end();
-    });
+    }, 100);
   }
 });

@@ -20,6 +20,7 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var test = require('tape');
+var timers = require('timers');
 var Buffer = require('buffer').Buffer;
 
 var Readable = require('stream').Readable;
@@ -40,7 +41,7 @@ test('stream.Readable - readable event - first', function (t) {
   r.push(new Buffer('blerg'));
 
   var caughtReadable = false;
-  setTimeout(function() {
+  timers.setImmediate(function() {
     // we're testing what we think we are
     t.ok(!r._readableState.reading);
     r.on('readable', function() {
@@ -76,7 +77,7 @@ test('stream.Readable - readable event - second', function (t) {
   r.push(new Buffer('bl'));
 
   var caughtReadable = false;
-  setTimeout(function() {
+  timers.setImmediate(function() {
     // assert we're testing what we think we are
     t.ok(r._readableState.reading);
     r.on('readable', function() {
@@ -103,7 +104,7 @@ test('stream.Readable - readable event - third', function (t) {
   r.push(null);
 
   var caughtReadable = false;
-  setTimeout(function() {
+  timers.setImmediate(function() {
     // assert we're testing what we think we are
     t.ok(!r._readableState.reading);
     r.on('readable', function() {

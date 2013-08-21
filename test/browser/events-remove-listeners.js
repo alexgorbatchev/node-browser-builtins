@@ -26,17 +26,14 @@ var events = require('events');
 var count = 0;
 
 function listener1() {
-  console.log('listener1');
   count++;
 }
 
 function listener2() {
-  console.log('listener2');
   count++;
 }
 
 function listener3() {
-  console.log('listener3');
   count++;
 }
 

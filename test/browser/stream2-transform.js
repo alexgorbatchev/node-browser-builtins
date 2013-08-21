@@ -242,7 +242,6 @@ test('passthrough event emission', function(t) {
   var emits = 0;
   pt.on('readable', function() {
     var state = pt._readableState;
-    console.error('>>> emit readable %d', emits);
     emits++;
   });
 
@@ -250,29 +249,21 @@ test('passthrough event emission', function(t) {
 
   pt.write(new Buffer('foog'));
 
-  console.error('need emit 0');
   pt.write(new Buffer('bark'));
 
-  console.error('should have emitted readable now 1 === %d', emits);
   t.equal(emits, 1);
 
   t.equal(pt.read(5).toString(), 'foogb');
   t.equal(pt.read(5) + '', 'null');
 
-  console.error('need emit 1');
-
   pt.write(new Buffer('bazy'));
-  console.error('should have emitted, but not again');
   pt.write(new Buffer('kuel'));
 
-  console.error('should have emitted readable now 2 === %d', emits);
   t.equal(emits, 2);
 
   t.equal(pt.read(5).toString(), 'arkba');
   t.equal(pt.read(5).toString(), 'zykue');
   t.equal(pt.read(5), null);
-
-  console.error('need emit 2');
 
   pt.end();
 
@@ -281,7 +272,6 @@ test('passthrough event emission', function(t) {
   t.equal(pt.read(5).toString(), 'l');
   t.equal(pt.read(5), null);
 
-  console.error('should not have emitted again');
   t.equal(emits, 3);
   t.end();
 });
@@ -290,26 +280,21 @@ test('passthrough event emission reordered', function(t) {
   var pt = new PassThrough;
   var emits = 0;
   pt.on('readable', function() {
-    console.error('emit readable', emits)
     emits++;
   });
 
   pt.write(new Buffer('foog'));
-  console.error('need emit 0');
   pt.write(new Buffer('bark'));
-  console.error('should have emitted readable now 1 === %d', emits);
   t.equal(emits, 1);
 
   t.equal(pt.read(5).toString(), 'foogb');
   t.equal(pt.read(5), null);
 
-  console.error('need emit 1');
   pt.once('readable', function() {
     t.equal(pt.read(5).toString(), 'arkba');
 
     t.equal(pt.read(5), null);
 
-    console.error('need emit 2');
     pt.once('readable', function() {
       t.equal(pt.read(5).toString(), 'zykue');
       t.equal(pt.read(5), null);
@@ -328,7 +313,6 @@ test('passthrough event emission reordered', function(t) {
 });
 
 test('passthrough facaded', function(t) {
-  console.error('passthrough facaded');
   var pt = new PassThrough;
   var datas = [];
   pt.on('data', function(chunk) {
@@ -356,7 +340,6 @@ test('passthrough facaded', function(t) {
 });
 
 test('object transform (json parse)', function(t) {
-  console.error('json parse stream');
   var jp = new Transform({ objectMode: true });
   jp._transform = function(data, encoding, cb) {
     try {
@@ -396,7 +379,6 @@ test('object transform (json parse)', function(t) {
 });
 
 test('object transform (json stringify)', function(t) {
-  console.error('json parse stream');
   var js = new Transform({ objectMode: true });
   js._transform = function(data, encoding, cb) {
     try {

@@ -51,7 +51,6 @@ test('stream2 - readable non empty end', function (t) {
     var res = test.read(b);
     if (res) {
       bytesread += res.length;
-      console.error('br=%d len=%d', bytesread, len);
       setTimeout(next);
     }
     test.read(0);
