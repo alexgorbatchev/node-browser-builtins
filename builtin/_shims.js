@@ -42,6 +42,16 @@ exports.forEach = function forEach(xs, fn) {
   }
 };
 
+// Array.prototype.map is supported in IE9
+exports.map = function map(xs, fn) {
+  if (xs.map) return xs.map(fn);
+  var out = new Array(xs.length);
+  for (var i = 0; i < xs.length; i++) {
+    out[i] = fn(xs[i], i, xs);
+  }
+  return out;
+};
+
 // Array.prototype.reduce is supported in IE9
 exports.reduce = function reduce(array, callback, opt_initialValue) {
   if (array.reduce) return array.reduce(callback, opt_initialValue);
@@ -64,6 +74,21 @@ exports.reduce = function reduce(array, callback, opt_initialValue) {
   }
 
   return value;
+};
+
+// String.prototype.substr - negative index don't work in IE8
+if ('ab'.substr(-1) !== 'b') {
+  exports.substr = function (str, start, length) {
+    // did we get a negative start, calculate how much it is from the beginning of the string
+    if (start < 0) start = str.length + start;
+
+    // call the original function
+    return str.substr(start, length);
+  };
+} else {
+  exports.substr = function (str, start, length) {
+    return str.substr(start, length);
+  };
 }
 
 // Object.create is supported in IE9

@@ -113,10 +113,10 @@ QueryString.stringify = QueryString.encode = function(obj, sep, eq, name) {
   }
 
   if (util.isObject(obj)) {
-    return shims.keys(obj).map(function(k) {
+    return shims.map(shims.keys(obj), function(k) {
       var ks = QueryString.escape(stringifyPrimitive(k)) + eq;
       if (util.isArray(obj[k])) {
-        return obj[k].map(function(v) {
+        return shims.map(obj[k], function(v) {
           return ks + QueryString.escape(stringifyPrimitive(v));
         }).join(sep);
       } else {

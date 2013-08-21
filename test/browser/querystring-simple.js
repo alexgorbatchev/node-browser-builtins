@@ -1,5 +1,6 @@
 
 var test = require('tape');
+var shims = require('../../builtin/_shims.js');
 
 var qs = require('querystring');
 
@@ -86,28 +87,28 @@ test('qs.parse - simple example', function (t) {
 });
 
 test('qs.parse - test that the canonical qs is parsed properly', function (t) {
-  qsTestCases.forEach(function(testCase) {
+  shims.forEach(qsTestCases, function(testCase) {
     t.deepEqual(testCase[2], qs.parse(testCase[0]));
   });
   t.end();
 });
 
 test('qs.parse - test that the colon test cases can do the same', function (t) {
-  qsColonTestCases.forEach(function(testCase) {
+  shims.forEach(qsColonTestCases, function(testCase) {
     t.deepEqual(testCase[2], qs.parse(testCase[0], ';', ':'));
   });
   t.end();
 });
 
 test('qs.parse - test the weird objects, that they get parsed properly', function (t) {
-  qsWeirdObjects.forEach(function(testCase) {
+  shims.forEach(qsWeirdObjects, function(testCase) {
     t.deepEqual(testCase[2], qs.parse(testCase[1]));
   });
   t.end();
 });
 
 test('qs.stringify - simple example', function (t) {
-  qsNoMungeTestCases.forEach(function(testCase) {
+  shims.forEach(qsNoMungeTestCases, function(testCase) {
     t.deepEqual(testCase[0], qs.stringify(testCase[1], '&', '=', false));
   });
   t.end();
@@ -128,15 +129,15 @@ test('qs.parse - nested in colon', function (t) {
 });
 
 test('qs.stringify - now test stringifying', function (t) {
-  qsTestCases.forEach(function(testCase) {
+  shims.forEach(qsTestCases, function(testCase) {
     t.equal(testCase[1], qs.stringify(testCase[2]));
   });
 
-  qsColonTestCases.forEach(function(testCase) {
+  shims.forEach(qsColonTestCases, function(testCase) {
     t.equal(testCase[1], qs.stringify(testCase[2], ';', ':'));
   });
 
-  qsWeirdObjects.forEach(function(testCase) {
+  shims.forEach(qsWeirdObjects, function(testCase) {
     t.equal(testCase[1], qs.stringify(testCase[0]));
   });
 
@@ -182,7 +183,7 @@ test('qs.parse - on nothing', function (t) {
 // Test limiting
 test('qs.parse - test limiting', function (t) {
   t.equal(
-      Object.keys(qs.parse('a=1&b=1&c=1', null, null, { maxKeys: 1 })).length,
+      shims.keys(qs.parse('a=1&b=1&c=1', null, null, { maxKeys: 1 })).length,
       1);
   t.end();
 });
@@ -197,7 +198,7 @@ test('qs.parse - Test removing limit', function (t) {
     url = qs.stringify(query);
 
     t.equal(
-        Object.keys(qs.parse(url, null, null, { maxKeys: 0 })).length,
+        shims.keys(qs.parse(url, null, null, { maxKeys: 0 })).length,
         2000);
   }
   testUnlimitedKeys();
