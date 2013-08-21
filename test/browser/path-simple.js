@@ -170,8 +170,6 @@ test('path.resolve', function (t) {
       // arguments                                    result
       [[['/var/lib', '../', 'file/'], '/var/file'],
        [['/var/lib', '/../', 'file/'], '/file'],
-       [['a/b/c/', '../../..'], process.cwd()],
-       [['.'], process.cwd()],
        [['/some/dir', '.', '/absolute/'], '/absolute']];
 
   shims.forEach(resolveTests, function(test) {
