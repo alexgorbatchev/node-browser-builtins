@@ -98,11 +98,10 @@ exports.trim = function (str) {
 };
 
 // Function.prototype.bind is supported in IE9
-exports.bind = function (fn) {
-  if (fn.bind) return fn.bind.apply(fn, arguments);
-
+exports.bind = function () {
   var args = Array.prototype.slice.call(arguments);
   var fn = args.shift();
+  if (fn.bind) return fn.bind.apply(fn, args);
   var self = args.shift();
   return function () {
     fn.apply(self, args.concat([Array.prototype.slice.call(arguments)]));
