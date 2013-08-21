@@ -1,13 +1,26 @@
-var events = require('events');
+module.exports = Stream;
+
+var EE = require('events').EventEmitter;
 var util = require('util');
 
-function Stream() {
-  events.EventEmitter.call(this);
-}
-util.inherits(Stream, events.EventEmitter);
-module.exports = Stream;
+util.inherits(Stream, EE);
+Stream.Readable = require('./_stream_readable.js');
+Stream.Writable = require('./_stream_writable.js');
+Stream.Duplex = require('./_stream_duplex.js');
+Stream.Transform = require('./_stream_transform.js');
+Stream.PassThrough = require('./_stream_passthrough.js');
+
 // Backwards-compat with node 0.4.x
 Stream.Stream = Stream;
+
+
+
+// old-style streams.  Note that the pipe method (the only relevant
+// part of this class) is overridden in the Readable class.
+
+function Stream() {
+  EE.call(this);
+}
 
 Stream.prototype.pipe = function(dest, options) {
   var source = this;
@@ -31,12 +44,8 @@ Stream.prototype.pipe = function(dest, options) {
   dest.on('drain', ondrain);
 
   // If the 'end' option is not supplied, dest.end() will be called when
-  // source gets the 'end' or 'close' events.  Only dest.end() once, and
-  // only when all sources have ended.
+  // source gets the 'end' or 'close' events.  Only dest.end() once.
   if (!dest._isStdio && (!options || options.end !== false)) {
-    dest._pipeCount = dest._pipeCount || 0;
-    dest._pipeCount++;
-
     source.on('end', onend);
     source.on('close', onclose);
   }
@@ -46,16 +55,6 @@ Stream.prototype.pipe = function(dest, options) {
     if (didOnEnd) return;
     didOnEnd = true;
 
-    dest._pipeCount--;
-
-    // remove the listeners
-    cleanup();
-
-    if (dest._pipeCount > 0) {
-      // waiting for other incoming streams to end.
-      return;
-    }
-
     dest.end();
   }
 
@@ -64,23 +63,13 @@ Stream.prototype.pipe = function(dest, options) {
     if (didOnEnd) return;
     didOnEnd = true;
 
-    dest._pipeCount--;
-
-    // remove the listeners
-    cleanup();
-
-    if (dest._pipeCount > 0) {
-      // waiting for other incoming streams to end.
-      return;
-    }
-
-    dest.destroy();
+    if (typeof dest.destroy === 'function') dest.destroy();
   }
 
   // don't leave dangling pipes when there are errors.
   function onerror(er) {
     cleanup();
-    if (this.listeners('error').length === 0) {
+    if (EE.listenerCount(this, 'error') === 0) {
       throw er; // Unhandled stream error in pipe.
     }
   }
@@ -102,14 +91,12 @@ Stream.prototype.pipe = function(dest, options) {
     source.removeListener('end', cleanup);
     source.removeListener('close', cleanup);
 
-    dest.removeListener('end', cleanup);
     dest.removeListener('close', cleanup);
   }
 
   source.on('end', cleanup);
   source.on('close', cleanup);
 
-  dest.on('end', cleanup);
   dest.on('close', cleanup);
 
   dest.emit('pipe', source);
