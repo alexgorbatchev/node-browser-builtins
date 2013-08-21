@@ -21,7 +21,7 @@
 
 var test = require('tape');
 
-var Readable = require('_stream_readable');
+var Readable = require('stream').Readable;
 var EE = require('events').EventEmitter;
 
 test('stream2 - readable wrap empty', function (t) {

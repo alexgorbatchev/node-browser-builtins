@@ -21,7 +21,7 @@
 
 var test = require('tape');
 var Buffer = require('buffer').Buffer;
-var Readable = require('_stream_readable');
+var Readable = require('stream').Readable;
 
 test('stream2 - readable non empty end', function (t) {
   var len = 0;
