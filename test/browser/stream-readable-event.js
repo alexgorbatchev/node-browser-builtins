@@ -49,6 +49,7 @@ test('stream.Readable - readable event - second', function (t) {
   var _readCalled = false;
   r._read = function(n) {
     _readCalled = true;
+    if (_readCalled && caughtReadable) t.end();
   };
 
   // This triggers a 'readable' event, which is lost.
@@ -60,17 +61,9 @@ test('stream.Readable - readable event - second', function (t) {
     t.ok(r._readableState.reading);
     r.on('readable', function() {
       caughtReadable = true;
-      done();
+      if (_readCalled && caughtReadable) t.end();
     });
   });
-
-  function done() {
-    // we're testing what we think we are
-    t.ok(_readCalled);
-
-    t.ok(caughtReadable);
-    t.end();
-  }
 });
 
 test('stream.Readable - readable event - third', function (t) {

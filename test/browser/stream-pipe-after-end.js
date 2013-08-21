@@ -46,6 +46,7 @@ test('stream - pipe after end', function (t) {
   setTimeout(function() {
     ender.on('end', function() {
       enderEnded = true;
+      if (enderEnded && writableFinished) t.end();
     });
     t.ok(!enderEnded);
     var c = ender.read();
@@ -55,14 +56,8 @@ test('stream - pipe after end', function (t) {
     var writableFinished = false;
     w.on('finish', function() {
       writableFinished = true;
-      done();
+      if (enderEnded && writableFinished) t.end();
     });
     piper.pipe(w);
-
-    function done() {
-      t.ok(enderEnded);
-      t.ok(writableFinished);
-      t.end();
-    }
   });
 });

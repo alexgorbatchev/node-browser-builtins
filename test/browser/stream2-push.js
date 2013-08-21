@@ -81,17 +81,17 @@ test('stream2 - push', function (t) {
   readStart();
   data();
   function data() {
-    t.ok(reading);
+    t.ok(reading, 'reading 1');
     source.emit('data', chunk);
-    t.ok(reading);
+    t.ok(reading, 'reading 2');
     source.emit('data', chunk);
-    t.ok(reading);
+    t.ok(reading, 'reading 3');
     source.emit('data', chunk);
-    t.ok(reading);
+    t.ok(reading, 'reading 4');
     source.emit('data', chunk);
-    t.ok(!reading);
+    t.ok(!reading, 'not reading 5');
     if (set++ < 5)
-      setTimeout(data, 10);
+      setTimeout(data, 100);
     else
       end();
   }
@@ -102,10 +102,10 @@ test('stream2 - push', function (t) {
 
   function end() {
     source.emit('end');
-    t.ok(!reading);
+    t.ok(!reading, 'not reading end');
     writer.end(stream.read());
     setTimeout(function() {
-      t.ok(ended);
+      t.ok(ended, 'end emitted');
       t.end();
     });
   }
