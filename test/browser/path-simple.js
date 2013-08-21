@@ -1,5 +1,6 @@
 
 var test = require('tape');
+var shims = require('../../builtin/_shims.js');
 
 var path = require('path');
 
@@ -134,14 +135,14 @@ test('path.join', function (t) {
       ];
 
   // Run the join tests.
-  joinTests.forEach(function(test) {
+  shims.forEach(joinTests, function(test) {
     var actual = path.join.apply(path, test[0]);
     var expected = test[1];
     t.equal(actual, expected);
   });
 
   var joinThrowTests = [true, false, 7, null, {}, undefined, [], NaN];
-  joinThrowTests.forEach(function(test) {
+  shims.forEach(joinThrowTests, function(test) {
     t.throws(function() {
       path.join(test);
     }, TypeError);
@@ -173,7 +174,7 @@ test('path.resolve', function (t) {
        [['.'], process.cwd()],
        [['/some/dir', '.', '/absolute/'], '/absolute']];
 
-  resolveTests.forEach(function(test) {
+  shims.forEach(resolveTests, function(test) {
     var actual = path.resolve.apply(path, test[0]);
     var expected = test[1];
     t.equal(actual, expected);
@@ -201,7 +202,7 @@ test('path.relative', function (t) {
        ['/var/', '/var/lib', 'lib'],
        ['/', '/var/lib', 'var/lib']];
 
-  relativeTests.forEach(function(test) {
+  shims.forEach(relativeTests, function(test) {
     var actual = path.relative(test[0], test[1]);
     var expected = test[2];
     t.equal(actual, expected);

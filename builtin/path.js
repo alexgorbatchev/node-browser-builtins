@@ -75,7 +75,7 @@ exports.resolve = function() {
 // posix version
 exports.normalize = function(path) {
   var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = path.substr(-1) === '/';
+      trailingSlash = shims.substr(path, -1) === '/';
 
   // Normalize the path
   path = normalizeArray(shims.filter(path.split('/'), function(p) {
