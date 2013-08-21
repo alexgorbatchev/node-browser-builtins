@@ -126,7 +126,7 @@ function stylizeNoColor(str, styleType) {
 function arrayToHash(array) {
   var hash = {};
 
-  array.forEach(function(val, idx) {
+  shims.forEach(array, function(val, idx) {
     hash[val] = true;
   });
 
@@ -274,7 +274,7 @@ function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
       output.push('');
     }
   }
-  keys.forEach(function(key) {
+  shims.forEach(keys, function(key) {
     if (!key.match(/^\d+$/)) {
       output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
           key, true));
