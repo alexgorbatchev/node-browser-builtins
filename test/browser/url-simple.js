@@ -1,7 +1,19 @@
 
 var test = require('tape');
+var assert = require('assert');
+var shims = require('../../builtin/_shims.js');
 
 var url = require('url');
+
+function objectify(instance) {
+  var obj = {};
+  for (var key in instance) {
+    if (instance.hasOwnProperty(key)) {
+      obj[key] = instance[obj];
+    }
+  }
+  return obj;
+}
 
 // URLs to parse, and expected data
 // { url : parsed }
@@ -713,14 +725,14 @@ test('url.parse and url.format - main test', function (t) {
         spaced = url.parse('     \t  ' + u + '\n\t');
         expected = parseTests[u];
 
-    Object.keys(actual).forEach(function (i) {
+    shims.forEach(shims.keys(actual), function (i) {
       if (expected[i] === undefined && actual[i] === null) {
         expected[i] = null;
       }
     });
 
-    t.deepEqual(actual, expected);
-    t.deepEqual(spaced, expected);
+    t.deepEqual(objectify(actual), objectify(expected));
+    t.deepEqual(objectify(spaced), objectify(expected));
 
     var expected = parseTests[u].href,
         actual = url.format(parseTests[u]);
@@ -765,7 +777,7 @@ test('url.parse - with qoutes', function (t) {
       }
     }
 
-    t.deepEqual(actual, expected);
+    t.deepEqual(objectify(actual), objectify(expected));
   }
 
   t.end();
@@ -1020,7 +1032,7 @@ var relativeTests = [
 ];
 
 test('url.relative - main tests', function (t) {
-  relativeTests.forEach(function(relativeTest) {
+  shims.forEach(relativeTests, function(relativeTest) {
     var a = url.resolve(relativeTest[0], relativeTest[1]),
         e = relativeTest[2];
     t.equal(a, e,
@@ -1033,7 +1045,7 @@ test('url.relative - main tests', function (t) {
 
 test('url.parse - will throw on none string', function (t) {
   // https://github.com/joyent/node/issues/568
-  [
+  shims.forEach([
     undefined,
     null,
     true,
@@ -1042,7 +1054,7 @@ test('url.parse - will throw on none string', function (t) {
     0,
     [],
     {}
-  ].forEach(function(val) {
+  ], function(val) {
     t.throws(function() { url.parse(val); }, TypeError);
   });
 
@@ -1337,7 +1349,7 @@ var relativeTests2 = [
 ];
 
 test('url.resolve - main tests', function (t) {
-  relativeTests2.forEach(function(relativeTest) {
+  shims.forEach(relativeTests2, function(relativeTest) {
     var a = url.resolve(relativeTest[1], relativeTest[0]),
         e = relativeTest[2];
     t.equal(a, e,
@@ -1353,12 +1365,12 @@ test('url.resolve - main tests', function (t) {
 
 test('url.resolveObject - inverse operations', function (t) {
   //format: [from, path, expected]
-  relativeTests.forEach(function(relativeTest) {
+  shims.forEach(relativeTests, function(relativeTest) {
     var actual = url.resolveObject(url.parse(relativeTest[0]), relativeTest[1]),
         expected = url.parse(relativeTest[2]);
 
 
-    t.deepEqual(actual, expected);
+    t.deepEqual(objectify(actual), objectify(expected));
 
     expected = relativeTest[2];
     actual = url.format(actual);
@@ -1385,11 +1397,11 @@ test('url - fundamental host problem', function (t) {
       relativeTests2[181][2] === 'f://g') {
     relativeTests2.splice(181, 1);
   }
-  relativeTests2.forEach(function(relativeTest) {
+  shims.forEach(relativeTests2, function(relativeTest) {
     var actual = url.resolveObject(url.parse(relativeTest[1]), relativeTest[0]),
         expected = url.parse(relativeTest[2]);
 
-    t.deepEqual(actual, expected);
+    t.deepEqual(objectify(actual), objectify(expected));
 
     var expected = relativeTest[2],
         actual = url.format(actual);

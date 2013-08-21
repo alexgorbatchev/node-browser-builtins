@@ -35,10 +35,10 @@ exports.filter = function filter(xs, fn) {
 };
 
 // Array.prototype.forEach is supported in IE9
-exports.forEach = function forEach(xs, fn) {
+exports.forEach = function forEach(xs, fn, self) {
   if (xs.forEach) return xs.forEach(fn);
   for (var i = 0; i < xs.length; i++) {
-    fn(xs[i], i, xs);
+    fn.call(self, xs[i], i, xs);
   }
 };
 
@@ -90,6 +90,12 @@ if ('ab'.substr(-1) !== 'b') {
     return str.substr(start, length);
   };
 }
+
+// String.prototype.trim is supported in IE9
+exports.trim = function (str) {
+  if (str.trim) return str.trim();
+  return str.replace(/^\s+|\s+$/g, '');
+};
 
 // Object.create is supported in IE9
 function create(prototype, properties) {
