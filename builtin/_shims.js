@@ -97,6 +97,18 @@ exports.trim = function (str) {
   return str.replace(/^\s+|\s+$/g, '');
 };
 
+// Function.prototype.bind is supported in IE9
+exports.bind = function (fn) {
+  if (fn.bind) return fn.bind.apply(fn, arguments);
+
+  var args = Array.prototype.slice.call(arguments);
+  var fn = args.shift();
+  var self = args.shift();
+  return function () {
+    fn.apply(self, args.concat([Array.prototype.slice.call(arguments)]));
+  };
+};
+
 // Object.create is supported in IE9
 function create(prototype, properties) {
   var object;

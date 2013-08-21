@@ -1,5 +1,6 @@
 
 var test = require('tape');
+var shims = require('../../builtin/_shims.js');
 
 var Readable = require('stream').Readable;
 var timers = require('timers');
@@ -17,15 +18,15 @@ test('stream - push strings', function (t) {
       case 0:
         return this.push(null);
       case 1:
-        return setTimeout(function() {
+        return setTimeout(shims.bind(function() {
           this.push('last chunk');
-        }.bind(this), 100);
+        }, this), 100);
       case 2:
         return this.push('second to last chunk');
       case 3:
-        return timers.setImmediate(function() {
+        return timers.setImmediate(shims.bind(function() {
           this.push('first chunk');
-        }.bind(this));
+        }, this));
       default:
         throw new Error('?');
     }

@@ -1,5 +1,6 @@
 
 var test = require('tape');
+var shims = require('../../builtin/_shims.js');
 var Buffer = require('buffer').Buffer;
 var R = require('stream').Readable;
 var util = require('util');
@@ -14,7 +15,7 @@ function TestReader(n, opts) {
 }
 
 TestReader.prototype._read = function(n) {
-  setTimeout(function() {
+  setTimeout(shims.bind(function() {
 
     if (this.pos >= this.len) {
       // double push(null) to test eos handling
@@ -34,7 +35,7 @@ TestReader.prototype._read = function(n) {
     ret.fill('a');
 
     return this.push(ret);
-  }.bind(this), 1);
+  }, this), 1);
 };
 
 test('setEncoding utf8', function(t) {

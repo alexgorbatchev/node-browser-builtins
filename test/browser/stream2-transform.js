@@ -1,5 +1,6 @@
 
 var test = require('tape');
+var shims = require('../../builtin/_shims.js');
 var Buffer = require('buffer').Buffer;
 var PassThrough = require('stream').PassThrough;
 var Transform = require('stream').Transform;
@@ -25,7 +26,7 @@ test('writable side consumption', function(t) {
   t.equal(tx._readableState.length, 10);
   t.equal(transformed, 10);
   t.equal(tx._transformState.writechunk.length, 5);
-  t.same(tx._writableState.buffer.map(function(c) {
+  t.same(shims.map(tx._writableState.buffer, function(c) {
     return c.chunk.length;
   }), [6, 7, 8, 9, 10]);
 
@@ -137,14 +138,14 @@ test('assymetric transform (compress)', function(t) {
     if (!chunk)
       chunk = '';
     var s = chunk.toString();
-    setTimeout(function() {
+    setTimeout(shims.bind(function() {
       this.state += s.charAt(0);
       if (this.state.length === 3) {
         pt.push(new Buffer(this.state));
         this.state = '';
       }
       cb();
-    }.bind(this), 10);
+    }, this), 10);
   };
 
   pt._flush = function(cb) {
@@ -360,7 +361,7 @@ test('object transform (json parse)', function(t) {
     ended = true;
   });
 
-  objects.forEach(function(obj) {
+  shims.forEach(objects, function(obj) {
     jp.write(JSON.stringify(obj));
     var res = jp.read();
     t.same(res, obj);
@@ -400,7 +401,7 @@ test('object transform (json stringify)', function(t) {
     ended = true;
   });
 
-  objects.forEach(function(obj) {
+  shims.forEach(objects, function(obj) {
     js.write(obj);
     var res = js.read();
     t.equal(res, JSON.stringify(obj));

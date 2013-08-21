@@ -1,5 +1,6 @@
 
 var test = require('tape');
+var shims = require('../../builtin/_shims.js');
 var R = require('stream').Readable;
 var W = require('stream').Writable;
 var D = require('stream').Duplex;
@@ -19,11 +20,11 @@ function TestWriter() {
 
 TestWriter.prototype._write = function(chunk, encoding, cb) {
   // simulate a small unpredictable latency
-  setTimeout(function() {
+  setTimeout(shims.bind(function() {
     this.buffer.push(chunk.toString());
     this.written += chunk.length;
     cb();
-  }.bind(this), Math.floor(Math.random() * 10));
+  }, this), Math.floor(Math.random() * 10));
 };
 
 var chunks = new Array(50);
@@ -41,7 +42,7 @@ test('write fast', function(t) {
     t.end();
   });
 
-  chunks.forEach(function(chunk) {
+  shims.forEach(chunks, function(chunk) {
     // screw backpressure.  Just buffer it all up.
     tw.write(chunk);
   });
@@ -118,7 +119,7 @@ test('write bufferize', function(t) {
     t.same(tw.buffer, chunks, 'got the expected chunks');
   });
 
-  chunks.forEach(function(chunk, i) {
+  shims.forEach(chunks, function(chunk, i) {
     var enc = encodings[ i % encodings.length ];
     chunk = new Buffer(chunk);
     tw.write(chunk.toString(enc), enc);
@@ -151,7 +152,7 @@ test('write no bufferize', function(t) {
     t.same(tw.buffer, chunks, 'got the expected chunks');
   });
 
-  chunks.forEach(function(chunk, i) {
+  shims.forEach(chunks, function(chunk, i) {
     var enc = encodings[ i % encodings.length ];
     chunk = new Buffer(chunk);
     tw.write(chunk.toString(enc), enc);
@@ -160,11 +161,11 @@ test('write no bufferize', function(t) {
 });
 
 test('write callbacks', function (t) {
-  var callbacks = chunks.map(function(chunk, i) {
+  var callbacks = shims.reduce(shims.map(chunks, function(chunk, i) {
     return [i, function(er) {
       callbacks._called[i] = chunk;
     }];
-  }).reduce(function(set, x) {
+  }), function(set, x) {
     set['callback-' + x[0]] = x[1];
     return set;
   }, {});
@@ -182,7 +183,7 @@ test('write callbacks', function (t) {
     });
   });
 
-  chunks.forEach(function(chunk, i) {
+  shims.forEach(chunks, function(chunk, i) {
     tw.write(chunk, callbacks['callback-' + i]);
   });
   tw.end();

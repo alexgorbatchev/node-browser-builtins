@@ -1,6 +1,7 @@
 
 var test = require('tape');
 var Buffer = require('buffer').Buffer;
+var Readable = require('stream').Readable;
 
 test('stream2 - large read stall', function (t) {
   // If everything aligns so that you do a read(n) of exactly the
@@ -11,7 +12,6 @@ test('stream2 - large read stall', function (t) {
   var PUSHCOUNT = 1000;
   var HWM = 50;
 
-  var Readable = require('stream').Readable;
   var r = new Readable({
     highWaterMark: HWM
   });
