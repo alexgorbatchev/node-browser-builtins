@@ -36,7 +36,7 @@ exports.filter = function filter(xs, fn) {
 
 // Array.prototype.forEach is supported in IE9
 exports.forEach = function forEach(xs, fn, self) {
-  if (xs.forEach) return xs.forEach(fn);
+  if (xs.forEach) return xs.forEach(fn, self);
   for (var i = 0; i < xs.length; i++) {
     fn.call(self, xs[i], i, xs);
   }
