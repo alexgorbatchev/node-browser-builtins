@@ -1,5 +1,7 @@
 
+
 var test = require('tape');
+var shims = require('../../builtin/_shims.js');
 
 var assert = require('assert');
 
@@ -116,7 +118,7 @@ test('assert.deepEqual - 7.5', function (t) {
   a1.b = true;
   a2.b = true;
   a2.a = 'test';
-  t.throws(makeBlock(assert.deepEqual, Object.keys(a1), Object.keys(a2)),
+  t.throws(makeBlock(assert.deepEqual, shims.keys(a1), shims.keys(a2)),
             assert.AssertionError);
   t.doesNotThrow(makeBlock(assert.deepEqual, a1, a2));
 
@@ -295,7 +297,6 @@ test('assert - test assertion message', function (t) {
   testAssertionMessage([], '[]');
   testAssertionMessage([1, 2, 3], '[1,2,3]');
   testAssertionMessage(/a/, '"/a/"');
-  testAssertionMessage(/abc/gim, '"/abc/gim"');
   testAssertionMessage(function f() {}, '"function f() {}"');
   testAssertionMessage({}, '{}');
   testAssertionMessage({a: undefined, b: null}, '{"a":"undefined","b":null}');

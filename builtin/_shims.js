@@ -92,7 +92,15 @@ exports.create = typeof Object.create === 'function' ? Object.create : create;
 
 // Object.keys and Object.getOwnPropertyNames is supported in IE9 however
 // they do show a description and number property on Error objects
+function notObject(object) {
+  return ((typeof object != "object" && typeof object != "function") || object === null);
+}
+
 function keysShim(object) {
+  if (notObject(object)) {
+    throw new TypeError("Object.keys called on a non-object");
+  }
+
   var result = [];
   for (var name in object) {
     if (hasOwnProperty.call(object, name)) {
@@ -106,6 +114,10 @@ function keysShim(object) {
 //  is that it returns hidden properties, since that can't be implemented,
 //  this feature gets reduced so it just shows the length property on arrays
 function propertyShim(object) {
+  if (notObject(object)) {
+    throw new TypeError("Object.getOwnPropertyNames called on a non-object");
+  }
+
   var result = keysShim(object);
   if (exports.isArray(object) && exports.indexOf(object, 'length') === -1) {
     result.push('length');

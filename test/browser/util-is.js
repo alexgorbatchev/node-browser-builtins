@@ -1,8 +1,8 @@
 
 var test = require('tape');
+var shims = require('../../builtin/_shims.js');
 
 var util = require('util');
-var shims = require('../../builtin/_shims.js');
 
 test('util.isArray', function (t) {
   t.equal(true, util.isArray([]));
