@@ -66,6 +66,9 @@ When you find a bug in this module and want to fix it its a good idea to follow 
 
 > On a general note, please try to fix all issues either by coping from nodecore
 > or by fixing it with a shim in the `_shims` file.
+>
+> Also since this module isn't just for browserify, you should always require
+> the `Buffer` module and avoid using the `process` object.
 
 1. Add a test (preferably in a new file) with the name `{modulename}-{issue}.js` in the `test/browser/` directory.
 2. Check if the bug exists in node.js, if true `goto` _bug in nodecore_
