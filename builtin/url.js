@@ -21,7 +21,7 @@
 
 var punycode = { encode : function (s) { return s } };
 var util = require('util');
-var shims = require('./_shims.js');
+var shims = require('_shims');
 
 exports.parse = urlParse;
 exports.resolve = urlResolve;

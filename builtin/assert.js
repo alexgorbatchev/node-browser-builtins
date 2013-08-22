@@ -21,7 +21,7 @@
 
 // UTILITY
 var util = require('util');
-var shims = require('./_shims.js');
+var shims = require('_shims');
 var pSlice = Array.prototype.slice;
 
 // 1. The assert module provides functions that throw

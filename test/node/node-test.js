@@ -4,6 +4,12 @@ var builtins = require('../../index.js');
 
 test('test that all the modules are set', function (t) {
   t.deepEqual(Object.keys(builtins).sort(), [
+    '_shims',
+    '_stream_duplex',
+    '_stream_passthrough',
+    '_stream_readable',
+    '_stream_transform',
+    '_stream_writable',
     'assert',
     'buffer',
     'child_process',

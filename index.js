@@ -7,7 +7,6 @@ var core = {};
 
 // load core modules from builtin dir
 fs.readdirSync(path.resolve(__dirname, 'builtin')).forEach(function(file) {
-  if (file[0] === '_') return;
   core[path.basename(file, '.js')] = path.resolve(__dirname, 'builtin', file);
 });
 

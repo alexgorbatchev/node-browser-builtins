@@ -23,7 +23,7 @@
 
 var QueryString = exports;
 var util = require('util');
-var shims = require('./_shims.js');
+var shims = require('_shims');
 var Buffer = require('buffer').Buffer;
 
 // If obj.hasOwnProperty has been overridden, then calling

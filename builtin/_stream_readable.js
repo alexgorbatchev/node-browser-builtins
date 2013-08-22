@@ -24,7 +24,7 @@ Readable.ReadableState = ReadableState;
 
 var EE = require('events').EventEmitter;
 var Stream = require('stream');
-var shims = require('./_shims.js');
+var shims = require('_shims');
 var Buffer = require('buffer').Buffer;
 var timers = require('timers');
 var util = require('util');

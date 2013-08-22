@@ -26,10 +26,10 @@
 
 module.exports = Duplex;
 var util = require('util');
-var shims = require('./_shims');
+var shims = require('_shims');
 var timers = require('timers');
-var Readable = require('./_stream_readable.js');
-var Writable = require('./_stream_writable.js');
+var Readable = require('_stream_readable');
+var Writable = require('_stream_writable');
 
 util.inherits(Duplex, Readable);
 
