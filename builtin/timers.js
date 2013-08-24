@@ -22,6 +22,11 @@ try {
     exports.clearTimeout = clearTimeout;
     exports.clearInterval = clearInterval;
 
+    if (window.setImmediate) {
+      exports.setImmediate = window.setImmediate;
+      exports.clearImmediate = window.clearImmediate;
+    }
+
     // Chrome and PhantomJS seems to depend on `this` pseudo variable being a
     // `window` and throws invalid invocation exception otherwise. If this code
     // runs in such JS runtime next line will throw and `catch` clause will
@@ -31,9 +36,68 @@ try {
     function bind(f, context) {
         return function () { return f.apply(context, arguments) };
     }
-    
+
     exports.setTimeout = bind(setTimeout, window);
     exports.setInterval = bind(setInterval, window);
     exports.clearTimeout = bind(clearTimeout, window);
     exports.clearInterval = bind(clearInterval, window);
+
+    if (window.setImmediate) {
+      exports.setImmediate = bind(window.setImmediate, window);
+      exports.clearImmediate = bind(window.clearImmediate, window);
+    }
+}
+
+exports.unref = function unref() {};
+exports.ref = function ref() {};
+
+if (!exports.setImmediate) {
+  var currentKey = 0, queue = {}, active = false;
+
+  exports.setImmediate = (function () {
+      function drain() {
+        active = false;
+        for (var key in queue) {
+          if (queue.hasOwnProperty(currentKey, key)) {
+            var fn = queue[key];
+            delete queue[key];
+            fn();
+          }
+        }
+      }
+
+      if (typeof window !== 'undefined' &&
+          window.postMessage && window.addEventListener) {
+        window.addEventListener('message', function (ev) {
+          if (ev.source === window && ev.data === 'browserify-tick') {
+            ev.stopPropagation();
+            drain();
+          }
+        }, true);
+
+        return function setImmediate(fn) {
+          var id = ++currentKey;
+          queue[id] = fn;
+          if (!active) {
+            active = true;
+            window.postMessage('browserify-tick', '*');
+          }
+          return id;
+        };
+      } else {
+        return function setImmediate(fn) {
+          var id = ++currentKey;
+          queue[id] = fn;
+          if (!active) {
+            active = true;
+            setTimeout(drain, 0);
+          }
+          return id;
+        };
+      }
+  })();
+
+  exports.clearImmediate = function clearImmediate(id) {
+    delete queue[id];
+  };
 }

@@ -1,1 +1,2 @@
-// nothing to see here... no file methods for the browser
+
+throw new Error('fs is not implemented');
