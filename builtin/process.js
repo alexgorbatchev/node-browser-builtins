@@ -1,7 +1,7 @@
 var process = module.exports = {};
 
-var timer = require('timer');
-process.nextTick = timer.setImmediate;
+var timers = require('timers');
+process.nextTick = timers.setImmediate;
 
 process.title = 'browser';
 process.browser = true;
