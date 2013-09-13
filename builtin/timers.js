@@ -37,14 +37,28 @@ try {
         return function () { return f.apply(context, arguments) };
     }
 
-    exports.setTimeout = bind(setTimeout, window);
-    exports.setInterval = bind(setInterval, window);
-    exports.clearTimeout = bind(clearTimeout, window);
-    exports.clearInterval = bind(clearInterval, window);
-
-    if (window.setImmediate) {
-      exports.setImmediate = bind(window.setImmediate, window);
-      exports.clearImmediate = bind(window.clearImmediate, window);
+    if (typeof window !== 'undefined') {
+      exports.setTimeout = bind(setTimeout, window);
+      exports.setInterval = bind(setInterval, window);
+      exports.clearTimeout = bind(clearTimeout, window);
+      exports.clearInterval = bind(clearInterval, window);
+      if (window.setImmediate) {
+        exports.setImmediate = bind(window.setImmediate, window);
+        exports.clearImmediate = bind(window.clearImmediate, window);
+      }
+    } else {
+      if (typeof setTimeout !== 'undefined') {
+        exports.setTimeout = setTimeout;
+      }
+      if (typeof setInterval !== 'undefined') {
+        exports.setInterval = setInterval;
+      }
+      if (typeof clearTimeout !== 'undefined') {
+        exports.clearTimeout = clearTimeout;
+      }
+      if (typeof clearInterval === 'function') {
+        exports.clearInterval = clearInterval;
+      }
     }
 }
 
