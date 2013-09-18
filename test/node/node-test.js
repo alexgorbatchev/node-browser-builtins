@@ -1,5 +1,5 @@
 
-var test = require('tap').test;
+var test = require('tape');
 var builtins = require('../../index.js');
 
 test('test that all the modules are set', function (t) {
