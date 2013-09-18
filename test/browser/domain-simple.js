@@ -1,12 +1,13 @@
 
 var test = require('tape');
 
-test('require domain should throw', function (t) {
+test('require domain should not throw', function (t) {
   try {
-    require('domain');
-    t.ok(false, 'domain did not throw');
+    var ret = require('domain');
+    t.ok(true, 'domain did not throw');
+    t.deepEqual(ret, {});
   } catch (e) {
-    t.ok(true, 'domain did throw');
+    t.ok(false, 'domain did throw');
   }
   t.end();
 });

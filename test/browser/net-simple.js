@@ -1,12 +1,13 @@
 
 var test = require('tape');
 
-test('require net should throw', function (t) {
+test('require net should not throw', function (t) {
   try {
-    require('net');
-    t.ok(false, 'net did not throw');
+    var ret = require('net');
+    t.ok(true, 'net did not throw');
+    t.deepEqual(ret, {});
   } catch (e) {
-    t.ok(true, 'net did throw');
+    t.ok(false, 'net did throw');
   }
   t.end();
 });

@@ -1,12 +1,13 @@
 
 var test = require('tape');
 
-test('require repl should throw', function (t) {
+test('require repl should not throw', function (t) {
   try {
-    require('repl');
-    t.ok(false, 'repl did not throw');
+    var ret = require('repl');
+    t.ok(true, 'repl did not throw');
+    t.deepEqual(ret, {});
   } catch (e) {
-    t.ok(true, 'repl did throw');
+    t.ok(false, 'repl did throw');
   }
   t.end();
 });

@@ -1,12 +1,13 @@
 
 var test = require('tape');
 
-test('require cluster should throw', function (t) {
+test('require cluster should not throw', function (t) {
   try {
-    require('cluster');
-    t.ok(false, 'cluster did not throw');
+    var ret = require('cluster');
+    t.ok(true, 'cluster did not throw');
+    t.deepEqual(ret, {});
   } catch (e) {
-    t.ok(true, 'cluster did throw');
+    t.ok(false, 'cluster did throw');
   }
   t.end();
 });
