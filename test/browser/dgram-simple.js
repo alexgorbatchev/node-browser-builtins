@@ -1,12 +1,13 @@
 
 var test = require('tape');
 
-test('require dgram should throw', function (t) {
+test('require dgram should not throw', function (t) {
   try {
-    require('dgram');
-    t.ok(false, 'dgram did not throw');
+    var ret = require('dgram');
+    t.ok(true, 'dgram did not throw');
+    t.deepEqual(ret, {});
   } catch (e) {
-    t.ok(true, 'dgram did throw');
+    t.ok(false, 'dgram did throw');
   }
   t.end();
 });

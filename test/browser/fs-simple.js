@@ -1,12 +1,13 @@
 
 var test = require('tape');
 
-test('require fs should throw', function (t) {
+test('require fs should not throw', function (t) {
   try {
-    require('fs');
-    t.ok(false, 'fs did not throw');
+    var ret = require('fs');
+    t.ok(true, 'fs did not throw');
+    t.deepEqual(ret, {});
   } catch (e) {
-    t.ok(true, 'fs did throw');
+    t.ok(false, 'fs did throw');
   }
   t.end();
 });

@@ -1,12 +1,13 @@
 
 var test = require('tape');
 
-test('require dns should throw', function (t) {
+test('require dns should not throw', function (t) {
   try {
-    require('dns');
-    t.ok(false, 'dns did not throw');
+    var ret = require('dns');
+    t.ok(true, 'dns did not throw');
+    t.deepEqual(ret, {});
   } catch (e) {
-    t.ok(true, 'dns did throw');
+    t.ok(false, 'dns did throw');
   }
   t.end();
 });

@@ -1,12 +1,13 @@
 
 var test = require('tape');
 
-test('require readline should throw', function (t) {
+test('require readline should not throw', function (t) {
   try {
-    require('readline');
-    t.ok(false, 'readline did not throw');
+    var ret = require('readline');
+    t.ok(true, 'readline did not throw');
+    t.deepEqual(ret, {});
   } catch (e) {
-    t.ok(true, 'readline did throw');
+    t.ok(false, 'readline did throw');
   }
   t.end();
 });
