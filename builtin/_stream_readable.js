@@ -365,7 +365,6 @@ function chunkInvalid(state, chunk) {
       chunk !== undefined &&
       !state.objectMode &&
       !er) {
-    console.log('chunk: ', chunk);
     er = new TypeError('Invalid non-string/buffer chunk');
   }
   return er;
