@@ -20,6 +20,7 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var shims = require('_shims');
+var console = require('console');
 
 var formatRegExp = /%[sdj%]/g;
 exports.format = function(f) {
