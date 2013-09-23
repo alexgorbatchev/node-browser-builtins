@@ -20,7 +20,6 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var util = require('util');
-var console = require('console');
 
 function EventEmitter() {
   this._events = this._events || {};
