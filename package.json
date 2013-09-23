@@ -25,7 +25,7 @@
     "buffer-browserify": "0.2.x",
     "zlib-browserify": "0.0.x",
     "constants-browserify": "0.0.x",
-    "os-browserify": "0.1.0"
+    "os-browserify": "0.1.x"
   },
   "devDependencies": {
     "tape": "1.0.x"
