@@ -24,6 +24,7 @@ test('test that all the modules are set', function (t) {
     'fs',
     'http',
     'https',
+    'module',
     'net',
     'os',
     'path',
