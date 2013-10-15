@@ -28,6 +28,8 @@
     "os-browserify": "0.1.x"
   },
   "devDependencies": {
+    "browserify": "2.34.x",
+    "testling": "1.5.x",
     "tape": "1.0.x"
   }
 }
