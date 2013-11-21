@@ -10,7 +10,17 @@ which broke `browserify` dependency. This module is that missing dependency.
 * Chrome: latest
 * Firefox: latest
 * Opera: latest
-* Internet Explore: 8, 9, 10
+* Internet Explore: 10, 11
+
+#### Legacy browsers
+
+This decision behind not supporting legacy browsers was made to reduce the
+maintenance and allow usage of more advanced browser features such as
+TypedArrays. Please do not supply pull requests there adds support for
+legacy browsers. Instead we recommend that you use the necessary polyfills
+for legacy browser support. Should you be willing to start your own complete
+browser-builtins polyfills project, then feel free to contact us for tips
+and hints.
 
 ## Documentation
 
@@ -83,7 +93,7 @@ When you find a bug in this module and want to fix it its a good idea to follow 
 
 #### outdated module
 
-1. Before you copy the module search for `shims` in the outdated module file. 
+1. Before you copy the module search for `shims` in the outdated module file.
 2. Copypast the **entire** module from [nodecore](https://github.com/joyent/node) (checkout a stable branch).
 3. Reimplement the `shims` from the outdated module file, `git diff` can help.
 4. `goto` _test in browsers_
