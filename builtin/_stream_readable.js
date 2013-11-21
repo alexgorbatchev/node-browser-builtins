@@ -24,7 +24,6 @@ Readable.ReadableState = ReadableState;
 
 var EE = require('events').EventEmitter;
 var Stream = require('stream');
-var shims = require('_shims');
 var Buffer = require('buffer').Buffer;
 var timers = require('timers');
 var util = require('util');
@@ -586,7 +585,7 @@ function flow(src) {
     if (state.pipesCount === 1)
       write(state.pipes, 0, null);
     else
-      shims.forEach(state.pipes, write);
+      state.pipes.forEach(write);
 
     src.emit('data', chunk);
 
@@ -664,7 +663,7 @@ Readable.prototype.unpipe = function(dest) {
   }
 
   // try to find the right one.
-  var i = shims.indexOf(state.pipes, dest);
+  var i = state.pipes.indexOf(dest);
   if (i === -1)
     return this;
 
@@ -810,8 +809,8 @@ Readable.prototype.wrap = function(stream) {
 
   // proxy certain important events.
   var events = ['error', 'close', 'destroy', 'pause', 'resume'];
-  shims.forEach(events, function(ev) {
-    stream.on(ev, shims.bind(self.emit, self, ev));
+  events.forEach(function(ev) {
+    stream.on(ev, self.emit.bind(self, ev));
   });
 
   // when we try to consume some more bytes, simply unpause the

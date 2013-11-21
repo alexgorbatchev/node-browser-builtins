@@ -20,7 +20,6 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var test = require('tape');
-var shims = require('../../builtin/_shims.js');
 var Buffer = require('buffer').Buffer;
 
 var R = require('stream').Readable;
@@ -48,7 +47,7 @@ TestReader.prototype.read = function(n) {
   if (toRead === 0) {
     // simulate the read buffer filling up with some more bytes some time
     // in the future.
-    setTimeout(shims.bind(function() {
+    setTimeout((function() {
       this._pos = 0;
       this._bufs -= 1;
       if (this._bufs <= 0) {
@@ -60,7 +59,7 @@ TestReader.prototype.read = function(n) {
       } else {
         this.emit('readable');
       }
-    }, this), 10);
+    }).bind(this), 10);
     return null;
   }
 
@@ -159,7 +158,7 @@ test('pipe', function(t) {
 
 
 
-shims.forEach([1,2,3,4,5,6,7,8,9], function(SPLIT) {
+[1,2,3,4,5,6,7,8,9].forEach(function(SPLIT) {
   test('unpipe', function(t) {
     var r = new TestReader(5);
 
@@ -245,7 +244,7 @@ test('multipipe', function(t) {
 });
 
 
-shims.forEach([1,2,3,4,5,6,7,8,9], function(SPLIT) {
+[1,2,3,4,5,6,7,8,9].forEach(function(SPLIT) {
   test('multi-unpipe', function(t) {
     var r = new TestReader(5);
 

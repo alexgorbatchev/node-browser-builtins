@@ -20,7 +20,6 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var test = require('tape');
-var shims = require('../../builtin/_shims.js');
 
 var Readable = require('stream').Readable;
 var timers = require('timers');
@@ -38,15 +37,15 @@ test('stream - push strings', function (t) {
       case 0:
         return this.push(null);
       case 1:
-        return setTimeout(shims.bind(function() {
+        return setTimeout((function() {
           this.push('last chunk');
-        }, this), 100);
+        }).bind(this), 100);
       case 2:
         return this.push('second to last chunk');
       case 3:
-        return timers.setImmediate(shims.bind(function() {
+        return timers.setImmediate((function() {
           this.push('first chunk');
-        }, this));
+        }).bind(this));
       default:
         throw new Error('?');
     }

@@ -21,7 +21,6 @@
 
 var Readable = require('stream').Readable;
 var Writable = require('stream').Writable;
-var shims = require('../../builtin/_shims.js');
 var test = require('tape');
 var timers = require('timers');
 
@@ -42,7 +41,7 @@ function toArray(callback) {
 function fromArray(list) {
   var r = new Readable({ objectMode: true });
   r._read = noop;
-  shims.forEach(list, function(chunk) {
+  list.forEach(function(chunk) {
     r.push(chunk);
   });
   r.push(null);
@@ -133,7 +132,7 @@ test('can read strings as objects', function(t) {
   });
   r._read = noop;
   var list = ['one', 'two', 'three'];
-  shims.forEach(list, function(str) {
+  list.forEach(function(str) {
     r.push(str);
   });
   r.push(null);
@@ -193,7 +192,7 @@ test('high watermark _read', function(t) {
     calls++;
   };
 
-  shims.forEach(list, function(c) {
+  list.forEach(function(c) {
     r.push(c);
   });
 

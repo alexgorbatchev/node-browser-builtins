@@ -20,7 +20,6 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var test = require('tape');
-var shims = require('../../builtin/_shims.js');
 
 var path = require('path');
 
@@ -155,14 +154,14 @@ test('path.join', function (t) {
       ];
 
   // Run the join tests.
-  shims.forEach(joinTests, function(test) {
+  joinTests.forEach(function(test) {
     var actual = path.join.apply(path, test[0]);
     var expected = test[1];
     t.equal(actual, expected);
   });
 
   var joinThrowTests = [true, false, 7, null, {}, undefined, [], NaN];
-  shims.forEach(joinThrowTests, function(test) {
+  joinThrowTests.forEach(function(test) {
     t.throws(function() {
       path.join(test);
     }, TypeError);
@@ -192,7 +191,7 @@ test('path.resolve', function (t) {
        [['/var/lib', '/../', 'file/'], '/file'],
        [['/some/dir', '.', '/absolute/'], '/absolute']];
 
-  shims.forEach(resolveTests, function(test) {
+  resolveTests.forEach(function(test) {
     var actual = path.resolve.apply(path, test[0]);
     var expected = test[1];
     t.equal(actual, expected);
@@ -220,7 +219,7 @@ test('path.relative', function (t) {
        ['/var/', '/var/lib', 'lib'],
        ['/', '/var/lib', 'var/lib']];
 
-  shims.forEach(relativeTests, function(test) {
+  relativeTests.forEach(function(test) {
     var actual = path.relative(test[0], test[1]);
     var expected = test[2];
     t.equal(actual, expected);

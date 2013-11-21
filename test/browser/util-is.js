@@ -20,7 +20,6 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var test = require('tape');
-var shims = require('../../builtin/_shims.js');
 
 var util = require('util');
 
@@ -34,7 +33,7 @@ test('util.isArray', function (t) {
   t.equal(false, util.isArray({ push: function() {} }));
   t.equal(false, util.isArray(/regexp/));
   t.equal(false, util.isArray(new Error()));
-  t.equal(false, util.isArray(shims.create(Array.prototype)));
+  t.equal(false, util.isArray(Object.create(Array.prototype)));
   t.end();
 });
 
@@ -45,7 +44,7 @@ test('util.isRegExp', function (t) {
   t.equal(false, util.isRegExp({}));
   t.equal(false, util.isRegExp([]));
   t.equal(false, util.isRegExp(new Date()));
-  t.equal(false, util.isRegExp(shims.create(RegExp.prototype)));
+  t.equal(false, util.isRegExp(Object.create(RegExp.prototype)));
   t.end();
 });
 
@@ -56,7 +55,7 @@ test('util.isDate', function (t) {
   t.equal(false, util.isDate({}));
   t.equal(false, util.isDate([]));
   t.equal(false, util.isDate(new Error()));
-  t.equal(false, util.isDate(shims.create(Date.prototype)));
+  t.equal(false, util.isDate(Object.create(Date.prototype)));
   t.end();
 });
 
@@ -67,7 +66,7 @@ test('util.isError', function (t) {
   t.equal(false, util.isError({}));
   t.equal(false, util.isError({ name: 'Error', message: '' }));
   t.equal(false, util.isError([]));
-  t.equal(false, util.isError(shims.create(Error.prototype)));
+  t.equal(false, util.isError(Object.create(Error.prototype)));
   t.end();
 });
 

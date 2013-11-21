@@ -21,7 +21,6 @@
 
 // UTILITY
 var util = require('util');
-var shims = require('_shims');
 var pSlice = Array.prototype.slice;
 
 // 1. The assert module provides functions that throw
@@ -200,8 +199,8 @@ function objEquiv(a, b) {
     return _deepEqual(a, b);
   }
   try {
-    var ka = shims.keys(a),
-        kb = shims.keys(b),
+    var ka = Object.keys(a),
+        kb = Object.keys(b),
         key, i;
   } catch (e) {//happens when one is a string literal and the other isn't
     return false;

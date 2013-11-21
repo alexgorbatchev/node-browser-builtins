@@ -20,7 +20,6 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var test = require('tape');
-var shims = require('../../builtin/_shims.js');
 var timers = require('timers');
 var Buffer = require('buffer').Buffer;
 var Readable = require('stream').Readable;
@@ -48,15 +47,15 @@ test('steam2 - readable empty buffer to eof - 1', function (t) {
       case 1:
         return r.push(buf);
       case 2:
-        setTimeout(shims.bind(r.read, r, 0), 10);
+        setTimeout(r.read.bind(r, 0), 10);
         return r.push(new Buffer(0)); // Not-EOF!
       case 3:
-        setTimeout(shims.bind(r.read, r, 0), 10);
+        setTimeout(r.read.bind(r, 0), 10);
         return timers.setImmediate(function() {
           return r.push(new Buffer(0));
         });
       case 4:
-        setTimeout(shims.bind(r.read, r, 0), 10);
+        setTimeout(r.read.bind(r, 0), 10);
         return setTimeout(function() {
           return r.push(new Buffer(0));
         });
