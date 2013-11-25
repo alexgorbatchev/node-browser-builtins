@@ -22,7 +22,7 @@
     "vm-browserify": "0.0.x",
     "crypto-browserify": "1.0.x",
     "http-browserify": "0.2.x",
-    "native-buffer-browserify": "~0.5.x",
+    "native-buffer-browserify": "1.0.x",
     "zlib-browserify": "0.0.x",
     "constants-browserify": "0.0.x",
     "os-browserify": "0.1.x"
