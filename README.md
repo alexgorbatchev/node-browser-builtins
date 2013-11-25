@@ -72,56 +72,14 @@ require('browser-builtins');
 
 ## Contribute
 
-When you find a bug in this module and want to fix it its a good idea to follow these steps:
+When fixing a bug please check the following:
 
-> On a general note, please try to fix all issues either by coping from nodecore
-> or by fixing it with a shim in the `_shims` file.
->
-> Also since this module isn't just for browserify, you should always require
-> the `Buffer` module and avoid using the `process` object.
-
-1. Add a test (preferably in a new file) with the name `{modulename}-{issue}.js` in the `test/browser/` directory.
-2. Check if the bug exists in node.js, if true `goto` _bug in nodecore_
-3. Check if the module is outdated, if true `goto` _outdated module_
-4. Check if the issue can be shimed, if true `goto` _fix with shims_
-5. Sorry, as of this date all issues could be fixed with shims, you are on your own
-
-#### bug in nodecore
-
-1. Fix it in [nodecore](https://github.com/joyent/node)
-2. When merged in nodecore `goto` _outdated module_
-
-#### outdated module
-
-1. Before you copy the module search for `shims` in the outdated module file.
-2. Copypast the **entire** module from [nodecore](https://github.com/joyent/node) (checkout a stable branch).
-3. Reimplement the `shims` from the outdated module file, `git diff` can help.
-4. `goto` _test in browsers_
-
-#### fix with shims
-
-In the `builtin` directory there is a `_shims.js` file this contain all the
-currently necessary shims. Most of these are incomple and writen specific
-for this module collection. If you find that the current implementation is
-insufficient try to improve it. If it lacks a feature just added that shim,
-but try to keep the implementation at a minimum. Usually `TypeError` and
-similar can be omitted.
-
-#### test in browsers
-
-This module is currently not integrated with testling-ci, but you can run testling
-locally in order to run the tests.
-
-1. First install: `npm install -g testling` and `npm install -g browserify`
-2. `cd` intro this module directory
-3. Run `browserify --transform ./test/browserify-transform.js test/browser/* | testling -u`
-4. This gives you a url, go to that url in a modern browser (just not IE, even IE 10).
-5. This will run the tests, if there was an issue you should fix it now
-6. Run the tests again in IE 10, then IE 9 and at last IE 8 and fix any issues (see: _fix with shims_)
-7. Test in the remaining supported browser, there shouldn't be any issues
-8. You are done, make the Pull Request :+1:
+1. Check that the bug do not exist in node and fix it there first
+2. Check that updating the code from the node source dosn't fix it
+3. It must be a browser issue, fix it here. But do please link to the browser bug report
 
 ## History
 
 1. "Forked" from `node-browser-resolve`, originally written by Roman Shtylman (@shtylman).
 2. Major update to node v0.10 and tests (@AndreasMadsen)
+3. no legacy browser support (IE10+)
