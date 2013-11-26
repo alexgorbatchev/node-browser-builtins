@@ -19,6 +19,8 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+var shims = require('_shims');
+
 var formatRegExp = /%[sdj%]/g;
 exports.format = function(f) {
   if (!isString(f)) {
@@ -176,11 +178,11 @@ function formatValue(ctx, value, recurseTimes) {
   }
 
   // Look up the keys of the object.
-  var keys = Object.keys(value);
+  var keys = shims.keys(value);
   var visibleKeys = arrayToHash(keys);
 
   if (ctx.showHidden) {
-    keys = Object.getOwnPropertyNames(value);
+    keys = shims.getOwnPropertyNames(value);
   }
 
   // Some type of object without properties can be shortcutted.
