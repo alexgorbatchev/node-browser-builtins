@@ -20,7 +20,6 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var util = require('util');
-var shims = require('_shims');
 
 // resolves . and .. elements in a path array with directory names there
 // must be no slashes, empty elements, or device names (c:\) in the array
@@ -84,7 +83,7 @@ exports.resolve = function() {
   // handle relative paths to be safe (might happen when process.cwd() fails)
 
   // Normalize the path
-  resolvedPath = normalizeArray(shims.filter(resolvedPath.split('/'), function(p) {
+  resolvedPath = normalizeArray(resolvedPath.split('/').filter(function(p) {
     return !!p;
   }), !resolvedAbsolute).join('/');
 
@@ -95,10 +94,10 @@ exports.resolve = function() {
 // posix version
 exports.normalize = function(path) {
   var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = shims.substr(path, -1) === '/';
+      trailingSlash = path.substr(-1) === '/';
 
   // Normalize the path
-  path = normalizeArray(shims.filter(path.split('/'), function(p) {
+  path = normalizeArray(path.split('/').filter(function(p) {
     return !!p;
   }), !isAbsolute).join('/');
 
@@ -120,7 +119,7 @@ exports.isAbsolute = function(path) {
 // posix version
 exports.join = function() {
   var paths = Array.prototype.slice.call(arguments, 0);
-  return exports.normalize(shims.filter(paths, function(p, index) {
+  return exports.normalize(paths.filter(function(p, index) {
     if (!util.isString(p)) {
       throw new TypeError('Arguments to path.join must be strings');
     }

@@ -21,7 +21,6 @@
 
 var test = require('tape');
 var assert = require('assert');
-var shims = require('../../builtin/_shims.js');
 
 var url = require('url');
 
@@ -745,7 +744,7 @@ test('url.parse and url.format - main test', function (t) {
         spaced = url.parse('     \t  ' + u + '\n\t');
         expected = parseTests[u];
 
-    shims.forEach(shims.keys(actual), function (i) {
+    Object.keys(actual).forEach(function (i) {
       if (expected[i] === undefined && actual[i] === null) {
         expected[i] = null;
       }
@@ -1052,7 +1051,7 @@ var relativeTests = [
 ];
 
 test('url.relative - main tests', function (t) {
-  shims.forEach(relativeTests, function(relativeTest) {
+  relativeTests.forEach(function(relativeTest) {
     var a = url.resolve(relativeTest[0], relativeTest[1]),
         e = relativeTest[2];
     t.equal(a, e,
@@ -1065,7 +1064,7 @@ test('url.relative - main tests', function (t) {
 
 test('url.parse - will throw on none string', function (t) {
   // https://github.com/joyent/node/issues/568
-  shims.forEach([
+  [
     undefined,
     null,
     true,
@@ -1074,7 +1073,7 @@ test('url.parse - will throw on none string', function (t) {
     0,
     [],
     {}
-  ], function(val) {
+  ].forEach(function(val) {
     t.throws(function() { url.parse(val); }, TypeError);
   });
 
@@ -1369,7 +1368,7 @@ var relativeTests2 = [
 ];
 
 test('url.resolve - main tests', function (t) {
-  shims.forEach(relativeTests2, function(relativeTest) {
+  relativeTests2.forEach(function(relativeTest) {
     var a = url.resolve(relativeTest[1], relativeTest[0]),
         e = relativeTest[2];
     t.equal(a, e,
@@ -1385,7 +1384,7 @@ test('url.resolve - main tests', function (t) {
 
 test('url.resolveObject - inverse operations', function (t) {
   //format: [from, path, expected]
-  shims.forEach(relativeTests, function(relativeTest) {
+  relativeTests.forEach(function(relativeTest) {
     var actual = url.resolveObject(url.parse(relativeTest[0]), relativeTest[1]),
         expected = url.parse(relativeTest[2]);
 
@@ -1417,7 +1416,7 @@ test('url - fundamental host problem', function (t) {
       relativeTests2[181][2] === 'f://g') {
     relativeTests2.splice(181, 1);
   }
-  shims.forEach(relativeTests2, function(relativeTest) {
+  relativeTests2.forEach(function(relativeTest) {
     var actual = url.resolveObject(url.parse(relativeTest[1]), relativeTest[0]),
         expected = url.parse(relativeTest[2]);
 

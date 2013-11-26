@@ -23,7 +23,6 @@
 
 var QueryString = exports;
 var util = require('util');
-var shims = require('_shims');
 var Buffer = require('buffer').Buffer;
 
 // If obj.hasOwnProperty has been overridden, then calling
@@ -134,10 +133,10 @@ QueryString.stringify = QueryString.encode = function(obj, sep, eq, name) {
   }
 
   if (util.isObject(obj)) {
-    return shims.map(shims.keys(obj), function(k) {
+    return Object.keys(obj).map(function(k) {
       var ks = QueryString.escape(stringifyPrimitive(k)) + eq;
       if (util.isArray(obj[k])) {
-        return shims.map(obj[k], function(v) {
+        return obj[k].map(function(v) {
           return ks + QueryString.escape(stringifyPrimitive(v));
         }).join(sep);
       } else {

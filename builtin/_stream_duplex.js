@@ -26,14 +26,13 @@
 
 module.exports = Duplex;
 var util = require('util');
-var shims = require('_shims');
 var timers = require('timers');
 var Readable = require('_stream_readable');
 var Writable = require('_stream_writable');
 
 util.inherits(Duplex, Readable);
 
-shims.forEach(shims.keys(Writable.prototype), function(method) {
+Object.keys(Writable.prototype).forEach(function(method) {
   if (!Duplex.prototype[method])
     Duplex.prototype[method] = Writable.prototype[method];
 });
@@ -67,5 +66,5 @@ function onend() {
 
   // no more data can be written.
   // But allow more writes to happen in this tick.
-  timers.setImmediate(shims.bind(this.end, this));
+  timers.setImmediate(this.end.bind(this));
 }
