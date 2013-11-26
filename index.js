@@ -19,7 +19,7 @@ core['vm'] = require.resolve('vm-browserify');
 core['crypto'] = require.resolve('crypto-browserify');
 core['console'] = require.resolve('console-browserify');
 core['zlib'] = require.resolve('zlib-browserify');
-core['buffer'] = require.resolve('buffer-browserify');
+core['buffer'] = require.resolve('native-buffer-browserify');
 core['constants'] = require.resolve('constants-browserify');
 core['os'] = path.resolve(require.resolve('os-browserify'), '..', 'browser.js');
 
