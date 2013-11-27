@@ -4,7 +4,8 @@
   "description": "Builtins that were extracted from node-browser-resolve on which browserify depends",
   "main": "index.js",
   "scripts": {
-    "test": "tape test/node/* && browserify --transform ./test/browserify-transform.js test/browser/* | testling"
+    "test": "tape test/node/*.js && zuul -- ./test/browser/*.js",
+    "test-local": "zuul --local 9000 -- ./test/browser/*.js"
   },
   "repository": {
     "type": "git",
@@ -28,8 +29,46 @@
     "os-browserify": "0.1.x"
   },
   "devDependencies": {
-    "browserify": "2.34.x",
-    "testling": "1.5.x",
+    "zuul": "~1.0.4",
     "tape": "1.0.x"
+  },
+  "browser": {
+    "console": "console-browserify",
+    "constants": "constants-browserify",
+    "crypto": "crypto-browserify",
+    "http": "http-browserify",
+    "buffer": "native-buffer-browserify",
+    "os": "os-browserify",
+    "vm": "vm-browserify",
+    "zlib": "zlib-browserify",
+    "assert": "./builtin/assert.js",
+    "child_process": "./builtin/child_process.js",
+    "cluster": "./builtin/cluster.js",
+    "dgram": "./builtin/dgram.js",
+    "dns": "./builtin/dns.js",
+    "domain": "./builtin/domain.js",
+    "events": "./builtin/events.js",
+    "fs": "./builtin/fs.js",
+    "https": "./builtin/https.js",
+    "module": "./builtin/module.js",
+    "net": "./builtin/net.js",
+    "path": "./builtin/path.js",
+    "process": "./builtin/process.js",
+    "querystring": "./builtin/querystring.js",
+    "readline": "./builtin/readline.js",
+    "repl": "./builtin/repl.js",
+    "stream": "./builtin/stream.js",
+    "string_decoder": "./builtin/string_decoder.js",
+    "sys": "./builtin/sys.js",
+    "timers": "./builtin/timers.js",
+    "tls": "./builtin/tls.js",
+    "tty": "./builtin/tty.js",
+    "url": "./builtin/url.js",
+    "util": "./builtin/util.js",
+    "_stream_readable": "./builtin/_stream_readable.js",
+    "_stream_writable": "./builtin/_stream_writable.js",
+    "_stream_duplex": "./builtin/_stream_duplex.js",
+    "_stream_transform": "./builtin/_stream_transform.js",
+    "_stream_passthrough": "./builtin/_stream_passthrough.js"
   }
 }
