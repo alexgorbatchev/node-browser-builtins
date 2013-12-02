@@ -15,6 +15,19 @@
     "browser"
   ],
   "author": "Alex Gorbatchev <alex.gorbatchev@gmail.com>",
+  "contributors": [
+    {"name": "Andreas Madsen", "email": "amwebdk@gmail.com"},
+    {"name": "Aria Stewart", "email": "aredridel@nbtsc.org"},
+    {"name": "Christian Tellnes", "email": "christian@tellnes.no"},
+    {"name": "Danya Postfactum", "email": "danya.postfactum@gmail.com"},
+    {"name": "Feross Aboukhadijeh", "email": "feross@feross.org"},
+    {"name": "James Halliday", "email": "mail@substack.net"},
+    {"name": "Jared Hanson", "email": "jaredhanson@gmail.com"},
+    {"name": "Julian Gruber", "email": "julian@juliangruber.com"},
+    {"name": "Lance Stout", "email": "lancestout@gmail.com"},
+    {"name": "Patrick Mueller", "email": "pmuellr@yahoo.com"},
+    {"name": "Victor Powell", "email": "vicapow@gmail.com"}
+  ],
   "license": "MIT",
   "dependencies": {
     "punycode": "1.2.x",
