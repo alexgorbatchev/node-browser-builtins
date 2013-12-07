@@ -1,6 +1,6 @@
 {
   "name": "browser-builtins",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Builtins that were extracted from node-browser-resolve on which browserify depends",
   "main": "index.js",
   "scripts": {
@@ -32,18 +32,18 @@
   "license": "MIT",
   "dependencies": {
     "punycode": "1.2.x",
-    "console-browserify": "~1.0.1",
+    "console-browserify": "1.0.x",
     "vm-browserify": "0.0.x",
     "crypto-browserify": "1.0.x",
-    "http-browserify": "0.2.x",
+    "http-browserify": "1.0.x",
     "native-buffer-browserify": "1.0.x",
     "zlib-browserify": "0.0.x",
     "constants-browserify": "0.0.x",
     "os-browserify": "0.1.x"
   },
   "devDependencies": {
-    "zuul": "~1.0.4",
-    "tape": "1.0.x"
+    "zuul": "1.0.x",
+    "tape": "2.3.x"
   },
   "browser": {
     "console": "console-browserify",
