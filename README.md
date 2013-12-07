@@ -80,6 +80,14 @@ When fixing a bug please check the following:
 2. Check that updating the code from the node source dosn't fix it
 3. It must be a browser issue, fix it here. But do please link to the browser bug report
 
+## Testing
+
+`node-browser-builtins` uses [zuul](https://github.com/defunctzombie/zuul) for client side testing. In summary, all you will need is a [Saucelabs](https://saucelabs.com) account (free one will work just fine). To get up and running with it, please follow [zuul instructions](https://github.com/defunctzombie/zuul/wiki/Cloud-testing).
+
+Finally, just run:
+
+    npm test
+
 ## History
 
 1. "Forked" from `node-browser-resolve`, originally written by Roman Shtylman (@shtylman).
