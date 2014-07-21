@@ -66,7 +66,7 @@ require('browser-builtins');
   crypto: '/user/node_modules/browser-builtins/node_modules/crypto-browserify/index.js',
   console: '/user/node_modules/browser-builtins/node_modules/console-browserify/index.js',
   zlib: '/user/node_modules/browser-builtins/node_modules/zlib-browserify/index.js',
-  buffer: '/user/node_modules/browser-builtins/node_modules/buffer-browserify/index.js',
+  buffer: '/user/node_modules/browser-builtins/node_modules/buffer/index.js',
   constants: '/user/node_modules/browser-builtins/node_modules/constants-browserify/constants.json',
   os: '/user/node_modules/browser-builtins/node_modules/os-browserify/browser.js'
 }

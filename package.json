@@ -36,7 +36,7 @@
     "vm-browserify": "0.0.x",
     "crypto-browserify": "1.0.x",
     "http-browserify": "1.0.x",
-    "native-buffer-browserify": "1.0.x",
+    "buffer": "2.4.x",
     "zlib-browserify": "0.0.x",
     "constants-browserify": "0.0.x",
     "os-browserify": "0.1.x"
@@ -50,7 +50,7 @@
     "constants": "constants-browserify",
     "crypto": "crypto-browserify",
     "http": "http-browserify",
-    "buffer": "native-buffer-browserify",
+    "buffer": "buffer",
     "os": "os-browserify",
     "vm": "vm-browserify",
     "zlib": "zlib-browserify",
