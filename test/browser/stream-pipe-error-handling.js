@@ -39,7 +39,7 @@ test('stream - pipe error handling - error listener catches', function (t) {
   t.end();
 });
 
-test('stream - pipe erro handling - error without listener throws', function (t) {
+test('stream - pipe error handling - error without listener throws', function (t) {
   var source = new Stream();
   var dest = new Stream();
 
