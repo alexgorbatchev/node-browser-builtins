@@ -32,7 +32,7 @@ module.exports = {
     "module": localModule('module'),
     "net": localModule('net'),
     "path": require.resolve('path-browserify/'),
-    "process": require.resolve('process/'),
+    "process": path.resolve(require.resolve('process/'), '..', 'browser.js'),
     "punycode":  path.resolve('punycode/'),
     "querystring": localModule('querystring'),
     "readline": localModule('readline'),
