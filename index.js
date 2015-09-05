@@ -1,9 +1,5 @@
 
-var fs = require('fs');
 var path = require('path');
-
-// core modules replaced by their browser capable counterparts
-var core = {};
 
 // load core modules from builtin dir
 function localModule(name) {
@@ -33,16 +29,16 @@ module.exports = {
     "net": localModule('net'),
     "path": require.resolve('path-browserify/'),
     "process": path.resolve(require.resolve('process/'), '..', 'browser.js'),
-    "punycode":  path.resolve('punycode/'),
+    "punycode":  require.resolve('punycode/'),
     "querystring": localModule('querystring'),
     "readline": localModule('readline'),
     "repl": localModule('repl'),
     "stream": localModule('stream'),
-    "string_decoder": path.resolve('string_decoder/'),
+    "string_decoder": require.resolve('string_decoder/'),
     "sys": localModule('sys'),
     "timers": localModule('timers'),
     "tls": localModule('tls'),
-    "tty": path.resolve('tty-browserify/'),
+    "tty": require.resolve('tty-browserify/'),
     "url": localModule('url'),
     "util": localModule('util'),
     "_shims": localModule('_shims'),
